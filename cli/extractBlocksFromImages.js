@@ -1,5 +1,5 @@
 
-var f = require('./functions');
+var f = require('../index');
 
 function extractBlocksFromImage(imagePath) {
 	return new Promise(function(resolve, reject) {

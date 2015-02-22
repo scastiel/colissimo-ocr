@@ -1,5 +1,5 @@
 
-var f = require('./functions');
+var f = require('../index');
 
 for (var i = 2; i < process.argv.length; i++) {
 
