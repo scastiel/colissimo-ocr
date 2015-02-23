@@ -1,6 +1,6 @@
 
 var getPixels = require("get-pixels")
-var learnedDates = require('./learned/dates');
+var learned = require('./learned');
 
 function arrayToString(array) {
 	var nx = array.shape[0],
@@ -108,12 +108,33 @@ function extractBlocks(array) {
 	var blocks = [];
 	var emptyColumns = getEmptyColumns(array);
 	emptyColumns.push(nx);
+
+	var newEmptyColumns = [ emptyColumns[0] ];
+	var nbEmptyColumns = 1;
+	for (var i = 1; i < emptyColumns.length; i++) {
+		if (emptyColumns[i] === emptyColumns[i - 1] + 1) {
+			nbEmptyColumns++;
+		} else {
+			if (nbEmptyColumns >= 5) {
+				newEmptyColumns.push(emptyColumns[i - 1]);
+				nbEmptyColumns = 1;
+			}
+			while (nbEmptyColumns > 1) {
+				newEmptyColumns.push(emptyColumns[i - nbEmptyColumns + 1]);
+				nbEmptyColumns--;
+			}
+			newEmptyColumns.push(emptyColumns[i]);
+		}
+	}
+	emptyColumns = newEmptyColumns;
+
 	var from = 0, to;
 	for (var c = 0; c < emptyColumns.length; c++) {
 		to = emptyColumns[c];
 
 		if (from !== to) {
 			var block = array.hi(to, ny).lo(from, 0);
+			block = removeExtraSpace(block);
 			blocks.push(block);
 		}
 
@@ -163,9 +184,31 @@ function guessTextFromImage(imagePath, threshold, callback) {
 		var str = "";
 		for (var j = 0; j < blocks.length; j++) {
 			var block = blocks[j];
-			str += learnedDates[arrayAs1D(block).join('')] || '?'
+			str += learned[arrayAs1D(block).join('')] || '?'
 		}
 		callback(null, str);
+	})
+}
+
+function removeExtraSpace(array) {
+	array = removeEmptyLinesTop(array);
+	array = removeEmptyLinesBottom(array);
+	array = removeEmptyColumnsLeft(array);
+	array = removeEmptyColumnsRight(array);
+	return array;
+}
+
+function imageToString(imagePath, threshold, callback) {
+	getPixels(imagePath, function(err, pixels) {
+		if (err)
+			return callback(err);
+
+		pixels = pixels.pick(null, null, 1);
+		pixels = blackAndWhite(pixels, threshold);
+
+		pixels = removeExtraSpace(pixels);
+
+		callback(null, arrayToString(pixels));
 	})
 }
 
@@ -173,6 +216,7 @@ module.exports = {
 	extractBlocksFromImage: extractBlocksFromImage,
 	arrayAs1D: arrayAs1D,
 	arrayToString: arrayToString,
-	guessTextFromImage: guessTextFromImage
+	guessTextFromImage: guessTextFromImage,
+	imageToString: imageToString
 };
 
