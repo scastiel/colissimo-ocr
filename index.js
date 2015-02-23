@@ -1,6 +1,7 @@
 
 var getPixels = require("get-pixels")
 var learned = require('./learned');
+var ndarray = require("ndarray");
 
 function arrayToString(array) {
 	var nx = array.shape[0],
@@ -101,7 +102,10 @@ function getEmptyColumns(array) {
 	return emptyColumns;
 }
 
-function extractBlocks(array) {
+function extractBlocks(array, minBlocksNumberForSpace, maxColumnsPerBlock) {
+
+	maxColumnsPerBlock = maxColumnsPerBlock || 1000;
+
 	var nx = array.shape[0],
 		ny = array.shape[1];
 
@@ -115,7 +119,7 @@ function extractBlocks(array) {
 		if (emptyColumns[i] === emptyColumns[i - 1] + 1) {
 			nbEmptyColumns++;
 		} else {
-			if (nbEmptyColumns >= 5) {
+			if (nbEmptyColumns >= minBlocksNumberForSpace) {
 				newEmptyColumns.push(emptyColumns[i - 1]);
 				nbEmptyColumns = 1;
 			}
@@ -130,7 +134,7 @@ function extractBlocks(array) {
 
 	var from = 0, to;
 	for (var c = 0; c < emptyColumns.length; c++) {
-		to = emptyColumns[c];
+		to = Math.min(emptyColumns[c], from + maxColumnsPerBlock);
 
 		if (from !== to) {
 			var block = array.hi(to, ny).lo(from, 0);
@@ -159,6 +163,14 @@ function arrayAs1D(array) {
 	return data;
 }
 
+function extractLines(array) {
+	var lines = extractBlocks(array.transpose(1, 0), 1, 13);
+	for (var i = 0; i < lines.length; i++) {
+		lines[i] = lines[i].transpose(1, 0)
+	}
+	return lines;
+}
+
 function extractBlocksFromImage(imagePath, threshold, callback) {
 	getPixels(imagePath, function(err, pixels) {
 		if (err)
@@ -172,7 +184,18 @@ function extractBlocksFromImage(imagePath, threshold, callback) {
 		pixels = removeEmptyColumnsLeft(pixels);
 		pixels = removeEmptyColumnsRight(pixels);
 
-		var blocks = extractBlocks(pixels);
+		var lines = extractLines(pixels);
+		
+		var blocks = [];
+		for (var i = 0; i < lines.length; i++) {
+			if (i !== 0) {
+				blocks.push(new ndarray([], [0, 0]));
+			}
+			var lineBlocks = extractBlocks(lines[i], 5);
+			for (var j = 0; j < lineBlocks.length; j++) {
+				blocks.push(lineBlocks[j]);
+			}
+		}
 		callback(null, blocks);
 	})
 }
