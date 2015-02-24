@@ -207,8 +207,9 @@ function guessTextFromImage(imagePath, threshold, callback) {
 		var str = "";
 		for (var j = 0; j < blocks.length; j++) {
 			var block = blocks[j];
-			str += learned[arrayAs1D(block).join('')] || '?'
+			str += learned.characters[arrayAs1D(block).join('')] || '?'
 		}
+		str = learned.postProcess(str);
 		callback(null, str);
 	})
 }

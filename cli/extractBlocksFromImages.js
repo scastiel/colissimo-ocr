@@ -1,6 +1,6 @@
 
 var f = require('../index');
-var r = require('../learned');
+var learned = require('../learned');
 
 function extractBlocksFromImage(imagePath) {
 	return new Promise(function(resolve, reject) {
@@ -29,7 +29,7 @@ Promise.all(process.argv.slice(2).map(extractBlocksFromImage))
 		for (var i = 0; i < uniqueBlocks.length; i++) {
 			var block = uniqueBlocks[i];
 			var block1D = f.arrayAs1D(block).join('');
-			if (!r[block1D]) {
+			if (!learned.characters[block1D]) {
 				console.log(f.arrayToString(block).split(/\n/).map(function(s) { return s ? "// " + s : ""; }).join("\n"));
 				console.log("r['" + block1D + "'] = '';");
 				console.log();
