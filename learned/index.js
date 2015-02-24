@@ -22,9 +22,13 @@ learned.postProcess = function(str) {
 		.replace(/\s+/g, ' ')
 		.replace(/est([a-z])/g, 'est $1')
 		.replace(/surson/g, 'sur son')
-		.replace(/dest inataire/g, 'destinataire')
+		.replace(/dest inat/g, 'destinat')
 		.replace(/parl(\W)/g, 'par l$1')
 		.replace(/\sl-/g, ' l\'')
+		.replace(/IVORYCOST/g, 'IVORY COST')
+		.replace(/(\w{2})'/g, '$1-')
+		.replace(/prêtà/, 'prêt à')
+		.replace(/leterritoire/, 'le territoire')
 	return str;
 }
 
