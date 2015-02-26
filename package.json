@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "description": "Colissimo-OCR is a module used for text recognition on images returned by the French website Colissimo.fr.",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scastiel/colissimo-ocr.git"
+  },
+  "keywords": [
+    "colissimo",
+    "ocr"
+  ],
   "scripts": {
     "test": "mocha"
   },
@@ -14,5 +22,9 @@
   },
   "devDependencies": {
     "should": "^5.0.1"
+  },
+  "optionalDependencies": {},
+  "engines": {
+    "node": "*"
   }
 }
