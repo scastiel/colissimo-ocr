@@ -4,7 +4,7 @@ var ocr = require('..');
 
 function itShouldGuess(expectedText, fromImagePath) {
 	it('should guess correct text from ' + fromImagePath, function(done) {
-		ocr.guessTextFromImage(fromImagePath, 242, function(err, str) {
+		ocr.guessTextFromImage(fromImagePath, function(err, str) {
 			should.not.exist(err);
 			str.should.be.exactly(expectedText);
 			done();

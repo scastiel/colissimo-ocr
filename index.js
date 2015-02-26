@@ -200,8 +200,8 @@ function extractBlocksFromImage(imagePath, threshold, callback) {
 	})
 }
 
-function guessTextFromImage(imagePath, threshold, callback) {
-	extractBlocksFromImage(imagePath, threshold, function(err, blocks) {
+function guessTextFromImage(imagePath, callback) {
+	extractBlocksFromImage(imagePath, 242, function(err, blocks) {
 		if (err)
 			return callback(err);
 		var str = "";

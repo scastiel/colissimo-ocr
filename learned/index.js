@@ -1,6 +1,6 @@
 
 var learned = {};
-var files = ['./dates', './texte'];
+var files = ['./dates', './texts'];
 
 learned.characters = {};
 for (var i = 0; i < files.length; i++) {

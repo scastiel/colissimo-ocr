@@ -35,4 +35,5 @@ module.exports = {
 	"text033.png": "Votre colis a quitté le territoire",
 	"text034.png": "Plate-forme Briarde",
 	"text035.png": "Bureau de Poste Paris",
+	"text036.png": "Votre colis est sorti du bureau d'échange. Il est en cours d'acheminement dans le pays de destination",
 }
