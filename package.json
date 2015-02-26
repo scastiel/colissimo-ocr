@@ -1,6 +1,6 @@
 {
   "name": "colissimo-ocr",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Colissimo-OCR is a module used for text recognition on images returned by the French website Colissimo.fr.",
   "main": "index.js",
   "repository": {

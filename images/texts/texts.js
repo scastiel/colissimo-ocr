@@ -36,4 +36,12 @@ module.exports = {
 	"text034.png": "Plate-forme Briarde",
 	"text035.png": "Bureau de Poste Paris",
 	"text036.png": "Votre colis est sorti du bureau d'échange. Il est en cours d'acheminement dans le pays de destination",
+	"text037.png": "Colis remis pour l'acheminement par flashage machine de tri",
+	"text038.png": "Votre colis a été déposé au bureau de poste après l'heure limite de dépôt. Il sera expédié dès le prochain jour ouvré.",
+	"text039.png": "Plate-forme Métropole Nord",
+	"text040.png": "Votre colis a quitté le pays d'origine",
+	"text041.png": "La livraison de votre colis a été reportée pour fermeture ou accès impossible.",
+	"text042.png": "Australie",
+	"text043.png": "Australie",
+	"text044.png": "Centre Export",
 }

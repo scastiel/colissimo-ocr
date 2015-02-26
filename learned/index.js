@@ -27,8 +27,10 @@ learned.postProcess = function(str) {
 		.replace(/\sl-/g, ' l\'')
 		.replace(/IVORYCOST/g, 'IVORY COST')
 		.replace(/(\w{2})'/g, '$1-')
-		.replace(/prêtà/, 'prêt à')
-		.replace(/leterritoire/, 'le territoire')
+		.replace(/prêtà/g, 'prêt à')
+		.replace(/leterritoire/g, 'le territoire')
+		.replace(/prochainj/g, 'prochain j')
+		.replace(/pourfermeture/g, 'pour fermeture')
 	return str;
 }
 
