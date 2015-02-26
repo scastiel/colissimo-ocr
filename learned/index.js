@@ -20,7 +20,7 @@ learned.postProcess = function(str) {
 		.replace(/([a-z])([A-Z])/g, '$1 $2')
 		.replace(/(\w{2})'(\w{2})/g, '$1-$2')
 		.replace(/\s+/g, ' ')
-		.replace(/est([a-z])/g, 'est $1')
+		.replace(/\sest([a-z])/g, ' est $1')
 		.replace(/surson/g, 'sur son')
 		.replace(/dest inat/g, 'destinat')
 		.replace(/parl(\W)/g, 'par l$1')
@@ -31,6 +31,17 @@ learned.postProcess = function(str) {
 		.replace(/leterritoire/g, 'le territoire')
 		.replace(/prochainj/g, 'prochain j')
 		.replace(/pourfermeture/g, 'pour fermeture')
+		.replace(/\-'/g, '"')
+		.replace(/(\w)"(\w)/g, '$1 "$2')
+		.replace(/pourretirer/g, 'pour retirer')
+		.replace(/retirerson/g, 'retirer son')
+		.replace(/retraitet/, 'retrait et')
+		.replace(/etd/g, 'et d')
+		.replace(/\sd\-/g, ' d\'')
+		.replace(/piéce/g, 'pièce')
+		.replace(/GEOPOSTSAS/g, 'GEOPOST SAS')
+		.replace(/\s\.\s\.\s/g, ' ')
+		.replace(/necessaires/g, 'nécessaires')
 	return str;
 }
 
